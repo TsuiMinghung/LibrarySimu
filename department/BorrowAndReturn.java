@@ -1,3 +1,9 @@
+package department;
+
+import entity.Book;
+import entity.Operation;
+import entity.Student;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -44,7 +50,7 @@ public class BorrowAndReturn {
         if (book.isSmeared()) {
             dealFine(operation);
             finishReturn(operation);
-            Logistics.getInstance().dealRepair(book,operation);
+            Logistics.getInstance().dealRepair(book,operation.getTime());
         } else {
             list.add(book);
             finishReturn(operation);

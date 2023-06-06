@@ -1,3 +1,12 @@
+package simulate;
+
+import department.Arranging;
+import department.BorrowAndReturn;
+import department.Machine;
+import department.Ordering;
+import entity.Operation;
+import entity.Student;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

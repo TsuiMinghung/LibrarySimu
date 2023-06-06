@@ -1,3 +1,8 @@
+package department;
+
+import entity.Book;
+import entity.BookTemplate;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -13,15 +18,15 @@ public class Library {
         return INSTANCE;
     }
 
-    private final HashMap<String,BookTemplate> books;
+    private final HashMap<String, BookTemplate> books;
 
     private Library() {
         books = new HashMap<>();
     }
 
-    public boolean isAvailable(String s) {
-        if (books.containsKey(s)) {
-            return books.get(s).isAvailable();
+    public boolean isAvailable(String bookId) {
+        if (books.containsKey(bookId)) {
+            return books.get(bookId).isAvailable();
         } else {
             return false;
         }

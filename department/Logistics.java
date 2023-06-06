@@ -1,3 +1,7 @@
+package department;
+
+import entity.Book;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -19,10 +23,10 @@ public class Logistics {
         name = "logistics division";
     }
 
-    public void dealRepair(Book book,Operation operation) {
+    public void dealRepair(Book book, String time) {
         list.add(book);
-        String[] output = new String[]{operation.squaredTime(),operation.
-                getBookId(), "got repaired by",name};
+        String[] output = new String[]{"[" + time + "]",book.getBookId()
+                , "got repaired by",name};
         System.out.println(String.join(" ",output));
     }
 

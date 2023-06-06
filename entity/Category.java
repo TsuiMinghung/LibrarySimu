@@ -1,3 +1,7 @@
+package entity;
+
+import simulate.Error;
+
 public enum Category {
     A,
     B,
@@ -12,7 +16,7 @@ public enum Category {
             case "C":
                 return C;
             default:
-                Error.occur("unrecognized Book Category");
+                Error.occur("unrecognized entity.Book entity.Category");
                 return null;
         }
     }

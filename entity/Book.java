@@ -1,3 +1,5 @@
+package entity;
+
 public class Book {
     private final BookTemplate bookTemplate;
     private final int id;
@@ -31,7 +33,7 @@ public class Book {
         this.state = newState;
     }
 
-    public String getId() {
+    public String getBookId() {
         return bookTemplate.getBookId();
     }
 

@@ -1,3 +1,6 @@
+package department;
+
+import entity.Book;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -22,10 +25,10 @@ public class Arranging {
     public void arrange() {
         HashMap<String, LinkedList<Book>> books = new HashMap<>();
         for (Book book : BorrowAndReturn.getInstance().collect()) {
-            if (books.containsKey(book.getId())) {
-                books.get(book.getId()).add(book);
+            if (books.containsKey(book.getBookId())) {
+                books.get(book.getBookId()).add(book);
             } else {
-                books.put(book.getId(),new LinkedList<Book>() {
+                books.put(book.getBookId(),new LinkedList<Book>() {
                     {
                         offer(book);
                     }
@@ -33,10 +36,10 @@ public class Arranging {
             }
         }
         for (Book book : Machine.getInstance().collect()) {
-            if (books.containsKey(book.getId())) {
-                books.get(book.getId()).add(book);
+            if (books.containsKey(book.getBookId())) {
+                books.get(book.getBookId()).add(book);
             } else {
-                books.put(book.getId(),new LinkedList<Book>() {
+                books.put(book.getBookId(),new LinkedList<Book>() {
                     {
                         offer(book);
                     }
@@ -44,10 +47,10 @@ public class Arranging {
             }
         }
         for (Book book : Logistics.getInstance().collect()) {
-            if (books.containsKey(book.getId())) {
-                books.get(book.getId()).add(book);
+            if (books.containsKey(book.getBookId())) {
+                books.get(book.getBookId()).add(book);
             } else {
-                books.put(book.getId(),new LinkedList<Book>() {
+                books.put(book.getBookId(),new LinkedList<Book>() {
                     {
                         offer(book);
                     }

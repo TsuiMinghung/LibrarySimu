@@ -1,3 +1,7 @@
+package entity;
+
+import simulate.Error;
+
 public class Operation {
     private final String time;
     private final String studentId;

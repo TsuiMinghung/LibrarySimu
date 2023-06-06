@@ -1,3 +1,11 @@
+package department;
+
+import entity.Book;
+import entity.Operation;
+import entity.Record;
+import entity.Student;
+import simulate.Runner;
+import simulate.Error;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -53,7 +61,7 @@ public class Ordering {
         if (!student.hasC(bookId) && !student.hasReserved(bookId) &&
             student.obeyRegisterRule(operation.getTime())) {
             student.reserveBook(bookId);
-            Record  record = new Record(operation);
+            Record record = new Record(operation);
             student.addRegister(record);
             records.offer(record);
             executeOrder(operation);
@@ -91,9 +99,9 @@ public class Ordering {
         }
     }
 
-    private void fetchBook(Student student,Book book) {
+    private void fetchBook(Student student, Book book) {
         String[] output = new String[]{"[" + Runner.updateTime() + "]",student.
-                getId(),"borrowed", book.getId(),"from",name};
+                getId(),"borrowed", book.getBookId(),"from",name};
         System.out.println(String.join(" ",output));
     }
 }

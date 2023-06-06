@@ -1,3 +1,6 @@
+package entity;
+
+import simulate.Error;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -87,7 +90,7 @@ public class Student {
     }
 
     public void ownC(Book book) {
-        bookCs.put(book.getId(),book);
+        bookCs.put(book.getBookId(),book);
     }
 
     public boolean hasReserved(String bookId) {

@@ -1,3 +1,5 @@
+package entity;
+
 public class Record {
     private final String date;
     private final Student student;
