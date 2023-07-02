@@ -1,10 +1,12 @@
-package entity;
+package global;
 
-import simulate.Error;
+import entity.Category;
+import entity.Student;
 
 public class Operation {
     private final String time;
-    private final String studentId;
+    private final Library library;
+    private final Student student;
     private final OpType type;
     private final String bookId;
 
@@ -12,7 +14,10 @@ public class Operation {
         String[] part = s.split(" ");
         assert (part.length == 4);
         this.time = part[0].substring(1,part[0].length() - 1);
-        this.studentId = part[1];
+        this.library = Library.getSchool(part[1].split("-")[0]);
+        String studentId = part[1].split("-")[1];
+        Student.tryAdd(studentId, library);
+        this.student = Student.getStudent(studentId);
         this.type = OpType.parse(part[2]);
         this.bookId = part[3];
     }
@@ -24,7 +29,8 @@ public class Operation {
         }
         if (o instanceof Operation) {
             return time.equals(((Operation) o).time) &&
-                    studentId.equals(((Operation) o).studentId) &&
+                    library.equals(((Operation) o).library) &&
+                    student.equals(((Operation) o).student) &&
                     type.equals(((Operation) o).type) &&
                     bookId.equals(((Operation) o).bookId);
         } else {
@@ -34,10 +40,6 @@ public class Operation {
 
     public OpType getOpType() {
         return type;
-    }
-
-    public String getStudentId() {
-        return studentId;
     }
 
     public String getBookId() {
@@ -57,7 +59,15 @@ public class Operation {
     }
 
     public Student getStudent() {
-        return Student.getStudent(studentId);
+        return student;
+    }
+
+    public Library getSchool() {
+        return library;
+    }
+
+    public void execute() {
+        library.execute(this);
     }
 
     public enum OpType {
@@ -77,7 +87,6 @@ public class Operation {
                 case "returned":
                     return returnBook;
                 default:
-                    Error.occur("unrecognized OpTye");
                     return null;
             }
         }

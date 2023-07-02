@@ -1,4 +1,4 @@
-package simulate;
+package global;
 
 public class Error {
     public static void occur(String s) {

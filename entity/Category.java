@@ -1,6 +1,6 @@
 package entity;
 
-import simulate.Error;
+import global.Error;
 
 public enum Category {
     A,

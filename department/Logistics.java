@@ -1,38 +1,40 @@
 package department;
 
 import entity.Book;
+import entity.Transport;
+import global.Library;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class Logistics {
-    private static Logistics INSTANCE = null;
 
-    public static Logistics getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Logistics();
-        }
-        return INSTANCE;
-    }
-
-    private final ArrayList<Book> list;
+    private final ArrayList<Book> intraList;
     private final String name;
+    private final Library library;
 
-    private Logistics() {
-        list = new ArrayList<>();
+    public Logistics(Library library) {
+        intraList = new ArrayList<>();
         name = "logistics division";
+        this.library = library;
     }
 
     public void dealRepair(Book book, String time) {
-        list.add(book);
-        String[] output = new String[]{"[" + time + "]",book.getBookId()
-                , "got repaired by",name};
+        if (book.schoolName().equals(library.getSchoolName())) {
+            intraList.add(book);
+        } else {
+            library.getPurchasing().returnToTransport(
+                    new Transport(library,book.getLibrary(),book)
+            );
+        }
+        String[] output = new String[]{"[" + time + "]",book.toString()
+                , "got repaired by",name,"in", library.getSchoolName()};
         System.out.println(String.join(" ",output));
     }
 
     public Collection<Book> collect() {
-        Collection<Book> result = new ArrayList<>(list);
-        list.clear();
+        Collection<Book> result = new ArrayList<>(intraList);
+        intraList.clear();
         return result;
     }
 }

@@ -1,30 +1,24 @@
 package department;
 
 import entity.Book;
+import global.Library;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Arranging {
 
-    private static Arranging INSTANCE = null;
-
-    public static Arranging getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Arranging();
-        }
-        return INSTANCE;
-    }
-
     private final String name;
+    private final Library library;
 
-    private Arranging() {
+    public Arranging(Library library) {
         this.name = "arranging librarian";
+        this.library = library;
     }
 
-    public void arrange() {
+    public void dealAllocate() {
         HashMap<String, LinkedList<Book>> books = new HashMap<>();
-        for (Book book : BorrowAndReturn.getInstance().collect()) {
+        for (Book book : library.getBorrowAndReturn().collect()) {
             if (books.containsKey(book.getBookId())) {
                 books.get(book.getBookId()).add(book);
             } else {
@@ -35,7 +29,7 @@ public class Arranging {
                 });
             }
         }
-        for (Book book : Machine.getInstance().collect()) {
+        for (Book book : library.getMachine().collect()) {
             if (books.containsKey(book.getBookId())) {
                 books.get(book.getBookId()).add(book);
             } else {
@@ -46,7 +40,7 @@ public class Arranging {
                 });
             }
         }
-        for (Book book : Logistics.getInstance().collect()) {
+        for (Book book : library.getLogistics().collect()) {
             if (books.containsKey(book.getBookId())) {
                 books.get(book.getBookId()).add(book);
             } else {
@@ -57,7 +51,18 @@ public class Arranging {
                 });
             }
         }
-        Ordering.getInstance().satisfy(books);
-        Library.getInstance().stack(books);
+        for (Book book : library.getPurchasing().collect()) {
+            if (books.containsKey(book.getBookId())) {
+                books.get(book.getBookId()).add(book);
+            } else {
+                books.put(book.getBookId(),new LinkedList<Book>() {
+                    {
+                        offer(book);
+                    }
+                });
+            }
+        }
+        library.getOrdering().satisfy(books);
+        library.getShelf().stack(books);
     }
 }

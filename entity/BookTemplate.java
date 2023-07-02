@@ -1,5 +1,7 @@
 package entity;
 
+import global.Library;
+
 import java.util.Collection;
 import java.util.Stack;
 
@@ -8,14 +10,30 @@ public class BookTemplate {
     private final String sequence;
     private final Category category;
     private final Stack<Book> copys;
+    private final Library library;
+    private final boolean rentable;
 
-    public BookTemplate(String s, int count) {
-        this.category = Category.parse(s.split("-")[0]);
-        this.sequence = s.split("-")[1];
+    public BookTemplate(String s, Library library) {
+        String[] divisions = s.split(" ");
+        this.category = Category.parse(divisions[0].split("-")[0]);
+        this.sequence = divisions[0].split("-")[1];
         this.copys = new Stack<>();
-        for (int i = 0;i < count;++i) {
+        for (int i = 0;i < Integer.parseInt(divisions[1]);++i) {
             copys.push(new Book(this,i));
         }
+        this.rentable = divisions[2].equals("Y");
+        this.library = library;
+    }
+
+    public BookTemplate(String bookId,Library library,int num) {
+        this.category = Category.parse(bookId.substring(0,1));
+        this.sequence = bookId.substring(2);
+        this.copys = new Stack<>();
+        for (int i = 0;i < num;++i) {
+            copys.push(new Book(this,i));
+        }
+        this.library = library;
+        this.rentable = true;
     }
 
     @Override
@@ -25,7 +43,8 @@ public class BookTemplate {
         }
         if (o instanceof BookTemplate) {
             return sequence.equals(((BookTemplate) o).sequence)
-                    && category.equals(((BookTemplate) o).category);
+                    && category.equals(((BookTemplate) o).category)
+                    && rentable == ((BookTemplate) o).rentable;
         } else {
             return false;
         }
@@ -50,5 +69,17 @@ public class BookTemplate {
 
     public void addAll(Collection<Book> books) {
         copys.addAll(books);
+    }
+
+    public String schoolName() {
+        return library.getSchoolName();
+    }
+
+    public boolean isRentable() {
+        return rentable;
+    }
+
+    public Library getLibrary() {
+        return library;
     }
 }

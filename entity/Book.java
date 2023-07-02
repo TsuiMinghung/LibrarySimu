@@ -1,5 +1,7 @@
 package entity;
 
+import global.Library;
+
 public class Book {
     private final BookTemplate bookTemplate;
     private final int id;
@@ -39,5 +41,18 @@ public class Book {
 
     public boolean isSmeared() {
         return state.equals(BookState.smeared);
+    }
+
+    @Override
+    public String toString() {
+        return bookTemplate.schoolName() + "-" + getBookId();
+    }
+
+    public String schoolName() {
+        return bookTemplate.schoolName();
+    }
+
+    public Library getLibrary() {
+        return bookTemplate.getLibrary();
     }
 }

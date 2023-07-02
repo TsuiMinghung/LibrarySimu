@@ -1,6 +1,8 @@
 package entity;
 
-import simulate.Error;
+import global.Operation;
+import global.Error;
+import global.Library;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,24 +16,26 @@ public class Student {
         return STUDENTS.get(id);
     }
 
-    public static void tryAdd(String id) {
+    public static void tryAdd(String id, Library library) {
         if (!STUDENTS.containsKey(id)) {
-            STUDENTS.put(id,new Student(id));
+            STUDENTS.put(id,new Student(id, library));
         }
     }
 
     private final String id;
+    private final Library library;
     private final HashMap<String,Book> bookCs;
     private Book bookB;
     private final HashSet<String> reservedBooks;
     private final HashMap<String, LinkedList<Record>> historyRecords;
 
-    public Student(String id) {
+    public Student(String id, Library library) {
         this.id = id;
         this.bookCs = new HashMap<>();
         this.bookB = null;
         this.reservedBooks = new HashSet<>();
         this.historyRecords = new HashMap<>();
+        this.library = library;
     }
 
     public void smearBook(Operation operation) {
@@ -85,6 +89,31 @@ public class Student {
         return id.hashCode();
     }
 
+    public boolean canHold(String bookId) {
+        switch (bookId.charAt(0)) {
+            case 'B':
+                return hasB();
+            case 'C':
+                return hasC(bookId);
+            default:
+                Error.occur("unsupported category");
+                return false;
+        }
+    }
+
+    public void own(Book book) {
+        switch (book.getBookId().charAt(0)) {
+            case 'B':
+                ownB(book);
+                break;
+            case 'C':
+                ownC(book);
+                break;
+            default:
+                Error.occur("unsupported category");
+        }
+    }
+
     public void ownB(Book book) {
         bookB = book;
     }
@@ -122,7 +151,12 @@ public class Student {
         return bookCs.remove(bookId);
     }
 
-    public String getId() {
-        return id;
+    @Override
+    public String toString() {
+        return library.getSchoolName() + "-" + id;
+    }
+
+    public String schoolName() {
+        return library.getSchoolName();
     }
 }
