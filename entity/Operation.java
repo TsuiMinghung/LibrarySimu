@@ -1,7 +1,6 @@
-package global;
+package entity;
 
-import entity.Category;
-import entity.Student;
+import global.Library;
 
 public class Operation {
     private final String time;

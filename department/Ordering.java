@@ -2,7 +2,7 @@ package department;
 
 import entity.Book;
 import global.Library;
-import global.Operation;
+import entity.Operation;
 import entity.Record;
 import entity.Student;
 import global.Error;

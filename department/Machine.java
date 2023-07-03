@@ -3,7 +3,7 @@ package department;
 import entity.Book;
 import entity.Transport;
 import global.Library;
-import global.Operation;
+import entity.Operation;
 import entity.Student;
 
 import java.util.ArrayList;

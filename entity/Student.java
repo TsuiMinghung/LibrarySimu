@@ -1,6 +1,5 @@
 package entity;
 
-import global.Operation;
 import global.Error;
 import global.Library;
 
