@@ -53,6 +53,9 @@ public class Shelf {
 
     public void stack(HashMap<String, LinkedList<Book>> stackedBooks) {
         for (Map.Entry<String,LinkedList<Book>> id2books : stackedBooks.entrySet()) {
+            if (!books.containsKey(id2books.getKey()) && !id2books.getValue().isEmpty()) {
+                books.put(id2books.getKey(),new BookTemplate(id2books.getValue().peek()));
+            }
             books.get(id2books.getKey()).addAll(id2books.getValue());
         }
     }

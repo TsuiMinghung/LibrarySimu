@@ -49,6 +49,7 @@ public class Ordering {
             }
         }
         dailyOperations.clear();
+        interRecords.clear();
     }
 
     private void orderB(Operation operation) {
@@ -57,21 +58,32 @@ public class Ordering {
         if (!interRecords.containsKey(student)) {
             interRecords.put(student,new InterList());
         }
-        if (!student.hasB() && !interRecords.get(student).hasB()
-                && Library.interBorrow(operation.getStudent(),bookId,library)) {
-            interRecords.get(student).setB();
-        }
-        if (!student.hasB() && !student.hasReserved(bookId)
-                && student.obeyRegisterRule(operation.getTime())) {
-            student.reserveBook(bookId);
-            Record record = new Record(operation);
 
-            if (!library.getShelf().hasBookTemplate(bookId)) {
-                purchaseList.put(bookId,purchaseList.getOrDefault(bookId,0) + 1);
+        if (student.hasB()) {
+            return;
+        } else {
+            //try inter
+            if (interRecords.get(student).hasB()) {
+                return;
+            } else {
+                if (Library.interBorrow(operation.getStudent(),bookId,library)) {
+                    interRecords.get(student).setB();
+                } else {
+                    //intra
+                    if (!student.hasReserved(bookId)
+                            && student.obeyRegisterRule(operation.getTime())) {
+                        student.reserveBook(bookId);
+                        Record record = new Record(operation);
+
+                        if (!library.getShelf().hasBookTemplate(bookId)) {
+                            purchaseList.put(bookId,purchaseList.getOrDefault(bookId,0) + 1);
+                        }
+                        intraRecords.add(record);
+                        printOrder(operation);
+                        student.addRegister(record);
+                    }
+                }
             }
-            intraRecords.add(record);
-            printOrder(operation);
-            student.addRegister(record);
         }
     }
 
@@ -82,22 +94,29 @@ public class Ordering {
             interRecords.put(student,new InterList());
         }
 
-        if (!student.hasC(bookId) && !interRecords.get(student).hasC(bookId)
-                && Library.interBorrow(operation.getStudent(),bookId,library)) {
-            interRecords.get(student).borrowC(bookId);
-        }
+        if (student.hasC(bookId)) {
+            return;
+        } else {
+            if (interRecords.get(student).hasC(bookId)) {
+                return;
+            } else {
+                if (Library.interBorrow(operation.getStudent(),bookId,library)) {
+                    interRecords.get(student).borrowC(bookId);
+                } else {
+                    if (!student.hasReserved(bookId) &&
+                            student.obeyRegisterRule(operation.getTime())) {
 
-        if (!student.hasC(bookId) && !student.hasReserved(bookId) &&
-            student.obeyRegisterRule(operation.getTime())) {
-
-            student.reserveBook(bookId);
-            Record record = new Record(operation);
-            if (!library.getShelf().hasBookTemplate(bookId)) {
-                purchaseList.put(bookId,purchaseList.getOrDefault(bookId,0) + 1);
+                        student.reserveBook(bookId);
+                        Record record = new Record(operation);
+                        if (!library.getShelf().hasBookTemplate(bookId)) {
+                            purchaseList.put(bookId,purchaseList.getOrDefault(bookId,0) + 1);
+                        }
+                        intraRecords.add(record);
+                        printOrder(operation);
+                        student.addRegister(record);
+                    }
+                }
             }
-            intraRecords.add(record);
-            printOrder(operation);
-            student.addRegister(record);
         }
     }
 
@@ -141,6 +160,7 @@ public class Ordering {
                 iterator.remove();
             }
         }
+        intraRecords.clear();
     }
 
     private void fetchBook(Student student, Book book) {

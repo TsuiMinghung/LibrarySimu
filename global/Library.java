@@ -76,7 +76,10 @@ public class Library {
     private final Ordering ordering;
     private final Purchasing purchasing;
 
+    private final HashMap<String,Student> students;
+
     public Library(Scanner scanner) {
+        this.students = new HashMap<>();
         shelf = new Shelf(this);
         logistics = new Logistics(this);
         borrowAndReturn = new BorrowAndReturn(this);
@@ -199,5 +202,15 @@ public class Library {
 
     public Purchasing getPurchasing() {
         return purchasing;
+    }
+
+    public Student getStudent(String id) {
+        return students.get(id);
+    }
+
+    public void tryAdd(String id) {
+        if (!students.containsKey(id)) {
+            students.put(id,new Student(id, this));
+        }
     }
 }

@@ -16,8 +16,8 @@ public class Operation {
         this.time = part[0].substring(1,part[0].length() - 1);
         this.library = Library.getSchool(part[1].split("-")[0]);
         String studentId = part[1].split("-")[1];
-        Student.tryAdd(studentId, library);
-        this.student = Student.getStudent(studentId);
+        this.library.tryAdd(studentId);
+        this.student = this.library.getStudent(studentId);
         this.type = OpType.parse(part[2]);
         this.bookId = part[3];
     }

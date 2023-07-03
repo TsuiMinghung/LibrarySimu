@@ -36,6 +36,14 @@ public class BookTemplate {
         this.rentable = true;
     }
 
+    public BookTemplate(Book book) {
+        this.category = Category.parse(book.getBookId().substring(0,1));
+        this.sequence = book.getBookId().substring(2);
+        this.copys = new Stack<>();
+        this.library = book.getLibrary();
+        this.rentable = true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this) {

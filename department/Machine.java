@@ -54,7 +54,7 @@ public class Machine {
                 ,book.toString(),"to",operation.getStudent().toString()};
         System.out.println(String.join(" ",output));
         output = new String[]{operation.squaredTime(),operation.
-                getSchool().toString(),"borrowed",book.toString(),"from",name};
+                getStudent().toString(),"borrowed",book.toString(),"from",name};
         System.out.println(String.join(" ",output));
     }
 

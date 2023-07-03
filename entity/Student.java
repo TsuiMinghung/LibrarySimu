@@ -10,18 +10,6 @@ import java.util.LinkedList;
 
 public class Student {
 
-    private static final HashMap<String,Student> STUDENTS = new HashMap<>();
-
-    public static Student getStudent(String id) {
-        return STUDENTS.get(id);
-    }
-
-    public static void tryAdd(String id, Library library) {
-        if (!STUDENTS.containsKey(id)) {
-            STUDENTS.put(id,new Student(id, library));
-        }
-    }
-
     private final String id;
     private final Library library;
     private final HashMap<String,Book> bookCs;
@@ -92,9 +80,9 @@ public class Student {
     public boolean canHold(String bookId) {
         switch (bookId.charAt(0)) {
             case 'B':
-                return hasB();
+                return !hasB();
             case 'C':
-                return hasC(bookId);
+                return !hasC(bookId);
             default:
                 Error.occur("unsupported category");
                 return false;

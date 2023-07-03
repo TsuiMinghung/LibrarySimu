@@ -78,7 +78,7 @@ public class Runner {
                     callItADay();
                 }
             }
-        } catch (Exception e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }
