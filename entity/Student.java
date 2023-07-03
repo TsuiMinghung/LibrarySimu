@@ -140,10 +140,10 @@ public class Student {
 
     @Override
     public String toString() {
-        return library.getSchoolName() + "-" + id;
+        return library.schoolName() + "-" + id;
     }
 
     public String schoolName() {
-        return library.getSchoolName();
+        return library.schoolName();
     }
 }

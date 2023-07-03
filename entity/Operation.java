@@ -13,7 +13,7 @@ public class Operation {
         String[] part = s.split(" ");
         assert (part.length == 4);
         this.time = part[0].substring(1,part[0].length() - 1);
-        this.library = Library.getSchool(part[1].split("-")[0]);
+        this.library = Library.getLibrary(part[1].split("-")[0]);
         String studentId = part[1].split("-")[1];
         this.library.tryAdd(studentId);
         this.student = this.library.getStudent(studentId);
@@ -59,10 +59,6 @@ public class Operation {
 
     public Student getStudent() {
         return student;
-    }
-
-    public Library getSchool() {
-        return library;
     }
 
     public void execute() {

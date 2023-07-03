@@ -17,7 +17,7 @@ public class Library {
 
     private static final HashMap<String, Library> LIBRARIES = new HashMap<>();
 
-    public static Library getSchool(String name) {
+    public static Library getLibrary(String name) {
         return LIBRARIES.get(name);
     }
 
@@ -116,7 +116,7 @@ public class Library {
         return schoolName.hashCode();
     }
 
-    public String getSchoolName() {
+    public String schoolName() {
         return schoolName;
     }
 

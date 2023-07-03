@@ -46,13 +46,13 @@ public class Purchasing {
         String time = "[" + Runner.currentTime() + "]";
         for (Transport transport : lendTo) {
             String[] output = new String[]{time,transport.getBook().toString()
-                    ,"got transported by",name,"in",library.getSchoolName()};
+                    ,"got transported by",name,"in",library.schoolName()};
             System.out.println(String.join(" ",output));
             transport.getTo().getPurchasing().dealReceive(transport);
         }
         for (Transport transport : returnTo) {
             String[] output = new String[]{time,transport.getBook().toString()
-                    ,"got transported by",name,"in",library.getSchoolName()};
+                    ,"got transported by",name,"in",library.schoolName()};
             System.out.println(String.join(" ",output));
             transport.getTo().getPurchasing().dealReceive(transport);
         }
@@ -68,7 +68,7 @@ public class Purchasing {
         String time = "[" + Runner.currentTime() + "]";
         for (Transport transport : receive) {
             String[] output = new String[]{time,transport.getBook().toString(),"got received by"
-                    ,name,"in",library.getSchoolName()};
+                    ,name,"in",library.schoolName()};
             System.out.println(String.join(" ",output));
         }
     }
@@ -99,8 +99,8 @@ public class Purchasing {
                 books.add(template.fetch());
             }
 
-            String[] output = new String[]{time,library.getSchoolName() + "-" + kv.getKey()
-                    ,"got purchased by",name,"in",library.getSchoolName()};
+            String[] output = new String[]{time,library.schoolName() + "-" + kv.getKey()
+                    ,"got purchased by",name,"in",library.schoolName()};
             System.out.println(String.join(" ",output));
         }
     }

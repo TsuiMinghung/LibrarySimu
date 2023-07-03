@@ -80,7 +80,7 @@ public class BookTemplate {
     }
 
     public String schoolName() {
-        return library.getSchoolName();
+        return library.schoolName();
     }
 
     public boolean isRentable() {

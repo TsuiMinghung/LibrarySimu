@@ -122,12 +122,12 @@ public class Ordering {
 
     private void printOrder(Operation operation) {
         String[] output = new String[]{operation.squaredTime(),operation.
-                getStudent().toString(),"ordered", library.getSchoolName() +
+                getStudent().toString(),"ordered", library.schoolName() +
                 "-" + operation.getBookId(),"from",name};
         System.out.println(String.join(" ",output));
         output = new String[]{operation.squaredTime(),name,"recorded",operation.
                 getStudent().toString() + "'s order of"
-                , library.getSchoolName() + "-" + operation.getBookId()};
+                , library.schoolName() + "-" + operation.getBookId()};
         System.out.println(String.join(" ",output));
     }
 

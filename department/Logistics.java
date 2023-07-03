@@ -20,7 +20,7 @@ public class Logistics {
     }
 
     public void dealRepair(Book book, String time) {
-        if (book.schoolName().equals(library.getSchoolName())) {
+        if (book.schoolName().equals(library.schoolName())) {
             intraList.add(book);
         } else {
             library.getPurchasing().returnToTransport(
@@ -28,7 +28,7 @@ public class Logistics {
             );
         }
         String[] output = new String[]{"[" + time + "]",book.toString()
-                , "got repaired by",name,"in", library.getSchoolName()};
+                , "got repaired by",name,"in", library.schoolName()};
         System.out.println(String.join(" ",output));
     }
 
