@@ -14,10 +14,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class Ordering {
+public class Ordering { //interBorrow and order
     private final String name;
     private final LinkedList<Operation> dailyOperations;
-    private final ArrayList<Record> intraRecords;
+    private final ArrayList<Record> intraRecords;//intra order or buy new books
     private final HashMap<Student,InterList> interRecords;
     private final HashMap<String,Integer> purchaseList;
     private final Library library;
@@ -32,6 +32,7 @@ public class Ordering {
     }
 
     public void order(Operation operation) {
+        //prerequisite: shelf doesn't have the book
         dailyOperations.offer(operation);
     }
 
@@ -64,9 +65,11 @@ public class Ordering {
         } else {
             //try inter
             if (interRecords.get(student).hasB()) {
+                //to guarantee the book from inter borrow must be accepted
                 return;
             } else {
-                if (Library.interBorrow(operation.getStudent(),bookId,library)) {
+                //consider inter borrow first
+                if (Library.canInterBorrow(operation.getStudent(),bookId,library)) {
                     interRecords.get(student).setB();
                 } else {
                     //intra
@@ -100,7 +103,7 @@ public class Ordering {
             if (interRecords.get(student).hasC(bookId)) {
                 return;
             } else {
-                if (Library.interBorrow(operation.getStudent(),bookId,library)) {
+                if (Library.canInterBorrow(operation.getStudent(),bookId,library)) {
                     interRecords.get(student).borrowC(bookId);
                 } else {
                     if (!student.hasReserved(bookId) &&

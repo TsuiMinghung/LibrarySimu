@@ -34,6 +34,7 @@ public class Machine {
     //need to check restrict
     public void borrow(Operation operation) {
         Book book = library.getShelf().fetchBook(operation.getBookId());
+
         if (meetLimit(operation)) {
             operation.getStudent().ownC(book);
             finishBorrow(operation,book);

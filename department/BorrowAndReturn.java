@@ -24,6 +24,7 @@ public class BorrowAndReturn {
     //need to check restrict
     public void borrow(Operation operation) {
         Book book = library.getShelf().fetchBook(operation.getBookId());
+
         if (meetLimit(operation)) {
             operation.getStudent().ownB(book);
             finishBorrow(operation,book);
@@ -64,11 +65,13 @@ public class BorrowAndReturn {
     public void dealReturn(Operation operation) {
         Student student = operation.getStudent();
         Book book = student.returnB();
+
         if (book.isSmeared()) {
             dealFine(operation);
             finishReturn(operation,book);
             library.getLogistics().dealRepair(book,operation.getTime());
         } else {
+            //belong to this school?
             if (book.schoolName().equals(student.schoolName())) {
                 intraList.add(book);
             } else {

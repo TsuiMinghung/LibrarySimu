@@ -53,18 +53,24 @@ public class Runner {
     }
 
     private void dealOperations(Scanner scanner) {
-        arrange();
+        //default arrange
+        printArrange();
+
         int n = Integer.parseInt(scanner.nextLine());
         for (int i = 0;i < n;++i) {
             Operation operation = new Operation(scanner.nextLine());
             dealOperation(operation);
         }
+
+        //simulate until the end of the final day
         Library.dealOrder();
         Library.dealTransport();
     }
 
     //update global date
     private void dealOperation(Operation operation) {
+        //deal transaction during open time of the library
+
         update(operation.getTime());
         operation.execute();
     }
@@ -100,13 +106,13 @@ public class Runner {
 
         if (current.get(Calendar.DAY_OF_YEAR) - previous.get(Calendar.DAY_OF_YEAR) >= 3) {
             Library.dealPurchase();
-            arrange();
+            printArrange();
             previous.add(Calendar.DAY_OF_YEAR,3);
-            Library.dealAllocate();
+            Library.dealAllocate();//collect,satisfy and on shelf
         }
     }
 
-    private void arrange() {
+    private void printArrange() {
         System.out.println("[" + SDF.format(current.getTime()) + "] arranging librarian arranged " +
                 "all the books");
     }

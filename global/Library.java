@@ -33,7 +33,7 @@ public class Library {
         }
     }
 
-    public static boolean interBorrow(Student student, String bookId, Library call) {
+    public static boolean canInterBorrow(Student student, String bookId, Library call) {
         for (Library library : LIBRARIES.values()) {
             if (!library.schoolName.equals(call.schoolName)) {
                 if (library.shelf.interAvailable(student,bookId,call)) {
@@ -118,6 +118,12 @@ public class Library {
 
     public String schoolName() {
         return schoolName;
+    }
+
+    public void tryAdd(String id) {
+        if (!students.containsKey(id)) {
+            students.put(id,new Student(id, this));
+        }
     }
 
     public void execute(Operation operation) {
@@ -207,11 +213,5 @@ public class Library {
 
     public Student getStudent(String id) {
         return students.get(id);
-    }
-
-    public void tryAdd(String id) {
-        if (!students.containsKey(id)) {
-            students.put(id,new Student(id, this));
-        }
     }
 }
