@@ -14,6 +14,18 @@ public class Runner {
     private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
     private static Runner INSTANCE = null;
 
+    public static int gapOfDay(String time) {
+        try {
+            Date targetDay = SDF.parse(time);
+            Calendar target = Calendar.getInstance();
+            target.setTime(targetDay);
+            return current.get(Calendar.DAY_OF_YEAR) - target.get(Calendar.DAY_OF_YEAR);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     public static String currentTime() {
         return SDF.format(current.getTime());
     }
