@@ -158,7 +158,7 @@ public class Library {
                     machine.borrow(operation);
                     break;
                 default:
-                    Error.occur("Unrecognized book type");
+                    Error.occur("Unsupported book type");
             }
         } else {
             ordering.order(operation);
