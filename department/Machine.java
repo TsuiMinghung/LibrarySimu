@@ -1,6 +1,10 @@
 package department;
 
-import entity.*;
+import entity.Book;
+import entity.BookState;
+import entity.Operation;
+import entity.Student;
+import entity.Transport;
 import global.Library;
 
 import java.util.ArrayList;
@@ -44,8 +48,8 @@ public class Machine {
                     ,book.toString(),"to",operation.getStudent().toString()};
             System.out.println(String.join(" ",output));
             operation.getStudent().ownC(book);
-            output = new String[]{"(Sequence)",operation.squaredTime(),
-                    "Machine sends a message to Library"};
+            output = new String[]{"(Sequence)",operation.squaredTime()
+                    , "Machine sends a message to Library"};
             System.out.println(String.join(" ",output));
 
             output = new String[]{operation.squaredTime(),operation.
@@ -57,8 +61,8 @@ public class Machine {
             System.out.println(String.join(" ",output));
             book.setState(BookState.machine);
 
-            output = new String[]{"(Sequence)",operation.squaredTime(),
-                    "Machine sends a message to Library"};
+            output = new String[]{"(Sequence)",operation.squaredTime()
+                    , "Machine sends a message to Library"};
             System.out.println(String.join(" ",output));
             intraList.add(book);
         }

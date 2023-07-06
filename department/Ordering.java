@@ -132,8 +132,8 @@ public class Ordering { //interBorrow and order
                 getStudent().toString() + "'s order of"
                 , library.schoolName() + "-" + operation.getBookId()};
         System.out.println(String.join(" ",output));
-        output = new String[]{"(Sequence)",operation.squaredTime(),
-                "Ordering sends a message to Library"};
+        output = new String[]{"(Sequence)",operation.squaredTime()
+                , "Ordering sends a message to Library"};
         System.out.println(String.join(" ",output));
     }
 

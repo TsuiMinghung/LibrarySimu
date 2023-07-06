@@ -32,8 +32,8 @@ public class BorrowAndReturn {
             System.out.println(String.join(" ",output));
 
             operation.getStudent().ownB(book);
-            output = new String[]{"(Sequence)",operation.squaredTime(),
-                    "BorrowAndReturn sends a message to Library"};
+            output = new String[]{"(Sequence)",operation.squaredTime()
+                    , "BorrowAndReturn sends a message to Library"};
             System.out.println(String.join(" ",output));
 
 
@@ -46,8 +46,8 @@ public class BorrowAndReturn {
                     ,"refused lending",book.toString(),"to",operation.getStudent().toString()};
             System.out.println(String.join(" ",output));
             book.setState(BookState.borrowAndReturn);
-            output = new String[]{"(Sequence)",operation.squaredTime(),
-                    "BorrowAndReturn sends a message to Library"};
+            output = new String[]{"(Sequence)",operation.squaredTime()
+                    , "BorrowAndReturn sends a message to Library"};
             System.out.println(String.join(" ",output));
             intraList.add(book);
         }
