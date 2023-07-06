@@ -166,7 +166,6 @@ public class Ordering { //interBorrow and order
                 iterator.remove();
             }
         }
-        intraRecords.clear();
     }
 
     private void fetchBook(Student student, Book book) {
