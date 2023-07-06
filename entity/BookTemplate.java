@@ -19,7 +19,7 @@ public class BookTemplate {
         this.sequence = divisions[0].split("-")[1];
         this.copys = new Stack<>();
         for (int i = 0;i < Integer.parseInt(divisions[1]);++i) {
-            copys.push(new Book(this,i));
+            copys.push(new Book(this,i,BookState.newBook));
         }
         this.rentable = divisions[2].equals("Y");
         this.library = library;
@@ -30,7 +30,7 @@ public class BookTemplate {
         this.sequence = bookId.substring(2);
         this.copys = new Stack<>();
         for (int i = 0;i < num;++i) {
-            copys.push(new Book(this,i));
+            copys.push(new Book(this,i,BookState.newBook));
         }
         this.library = library;
         this.rentable = true;
@@ -89,5 +89,9 @@ public class BookTemplate {
 
     public Library getLibrary() {
         return library;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 }

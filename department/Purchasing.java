@@ -1,6 +1,7 @@
 package department;
 
 import entity.Book;
+import entity.BookState;
 import entity.BookTemplate;
 import entity.Transport;
 import global.Library;
@@ -48,12 +49,14 @@ public class Purchasing {
             String[] output = new String[]{time,transport.getBook().toString()
                     ,"got transported by",name,"in",library.schoolName()};
             System.out.println(String.join(" ",output));
+            transport.getBook().setState(BookState.transport);
             transport.getTo().getPurchasing().dealReceive(transport);
         }
         for (Transport transport : returnTo) {
             String[] output = new String[]{time,transport.getBook().toString()
                     ,"got transported by",name,"in",library.schoolName()};
             System.out.println(String.join(" ",output));
+            transport.getBook().setState(BookState.transport);
             transport.getTo().getPurchasing().dealReceive(transport);
         }
         lendTo.clear();
@@ -70,6 +73,7 @@ public class Purchasing {
             String[] output = new String[]{time,transport.getBook().toString(),"got received by"
                     ,name,"in",library.schoolName()};
             System.out.println(String.join(" ",output));
+            transport.getBook().setState(BookState.receive);
         }
     }
 

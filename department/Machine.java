@@ -1,10 +1,7 @@
 package department;
 
-import entity.Book;
-import entity.Transport;
+import entity.*;
 import global.Library;
-import entity.Operation;
-import entity.Student;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,8 +22,14 @@ public class Machine {
         String[] output = new String[]{operation.squaredTime(),operation.getStudent().toString()
                 ,"queried",operation.getBookId(),"from",name};
         System.out.println(String.join(" ",output));
+        output = new String[] {"(Sequence)",operation.squaredTime()
+                ,"Library sends a message to Machine"};
+        System.out.println(String.join(" ",output));
         output = new String[] {operation.squaredTime(),name
                 , "provided information of",operation.getBookId()};
+        System.out.println(String.join(" ",output));
+        output = new String[] {"(Sequence)",operation.squaredTime()
+                ,"Machine sends a message to Library"};
         System.out.println(String.join(" ",output));
         return library.getShelf().isAvailable(operation.getBookId());
     }
@@ -36,11 +39,26 @@ public class Machine {
         Book book = library.getShelf().fetchBook(operation.getBookId());
 
         if (meetLimit(operation)) {
+
+            String[] output = new String[]{operation.squaredTime(),name,"lent"
+                    ,book.toString(),"to",operation.getStudent().toString()};
+            System.out.println(String.join(" ",output));
             operation.getStudent().ownC(book);
-            finishBorrow(operation,book);
+            output = new String[]{"(Sequence)",operation.squaredTime(),
+                    "Machine sends a message to Library"};
+            System.out.println(String.join(" ",output));
+
+            output = new String[]{operation.squaredTime(),operation.
+                    getStudent().toString(),"borrowed",book.toString(),"from",name};
+            System.out.println(String.join(" ",output));
         } else {
             String[] output = new String[]{operation.squaredTime(),name
                     ,"refused lending",book.toString(),"to",operation.getStudent().toString()};
+            System.out.println(String.join(" ",output));
+            book.setState(BookState.machine);
+
+            output = new String[]{"(Sequence)",operation.squaredTime(),
+                    "Machine sends a message to Library"};
             System.out.println(String.join(" ",output));
             intraList.add(book);
         }
@@ -50,23 +68,23 @@ public class Machine {
         return !operation.getStudent().hasC(operation.getBookId());
     }
 
-    private void finishBorrow(Operation operation,Book book) {
-        String[] output = new String[]{operation.squaredTime(),name,"lent"
-                ,book.toString(),"to",operation.getStudent().toString()};
-        System.out.println(String.join(" ",output));
-        output = new String[]{operation.squaredTime(),operation.
-                getStudent().toString(),"borrowed",book.toString(),"from",name};
-        System.out.println(String.join(" ",output));
-    }
-
     public void dealReturn(Operation operation) {
         Student student = operation.getStudent();
         Book book = student.returnC(operation.getBookId());
+
+        if (book.overDue()) {
+            library.getBorrowAndReturn().dealFine(operation);
+        }
+
         if (book.isSmeared()) {
             library.getBorrowAndReturn().dealFine(operation);
             finishReturn(operation,book);
+            book.setState(BookState.machine);
             library.getLogistics().dealRepair(book,operation.getTime());
         } else {
+            finishReturn(operation,book);
+            book.setState(BookState.machine);
+
             if (book.schoolName().equals(student.schoolName())) {
                 intraList.add(book);
             } else {
@@ -74,8 +92,9 @@ public class Machine {
                         new Transport(library,book.getLibrary(),book)
                 );
             }
-            finishReturn(operation,book);
         }
+
+        book.resetOwned();
     }
 
     private void finishReturn(Operation operation,Book book) {

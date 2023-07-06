@@ -1,6 +1,7 @@
 package department;
 
 import entity.Book;
+import entity.BookState;
 import entity.Transport;
 import global.Library;
 
@@ -20,6 +21,11 @@ public class Logistics {
     }
 
     public void dealRepair(Book book, String time) {
+        String[] output = new String[]{"[" + time + "]",book.toString()
+                , "got repaired by",name,"in", library.schoolName()};
+        System.out.println(String.join(" ",output));
+        book.setState(BookState.logistics);
+
         if (book.schoolName().equals(library.schoolName())) {
             intraList.add(book);
         } else {
@@ -27,9 +33,6 @@ public class Logistics {
                     new Transport(library,book.getLibrary(),book)
             );
         }
-        String[] output = new String[]{"[" + time + "]",book.toString()
-                , "got repaired by",name,"in", library.schoolName()};
-        System.out.println(String.join(" ",output));
     }
 
     public Collection<Book> collect() {

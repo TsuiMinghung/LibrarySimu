@@ -2,6 +2,7 @@ package entity;
 
 import global.Error;
 import global.Library;
+import global.Runner;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,10 +29,10 @@ public class Student {
     public void smearBook(Operation operation) {
         switch (operation.getCategory()) {
             case B:
-                bookB.setState(BookState.smeared);
+                bookB.setSmeared();
                 break;
             case C:
-                bookCs.get(operation.getBookId()).setState(BookState.smeared);
+                bookCs.get(operation.getBookId()).setSmeared();
                 break;
             default:
                 Error.occur("smear unsupported category");
@@ -103,10 +104,14 @@ public class Student {
 
     public void ownB(Book book) {
         bookB = book;
+        book.setState(BookState.onStudent);
+        book.setOwnedTime(Runner.currentTime());
     }
 
     public void ownC(Book book) {
+        book.setState(BookState.onStudent);
         bookCs.put(book.getBookId(),book);
+        book.setOwnedTime(Runner.currentTime());
     }
 
     public boolean hasReserved(String bookId) {

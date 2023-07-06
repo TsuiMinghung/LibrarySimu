@@ -132,6 +132,9 @@ public class Ordering { //interBorrow and order
                 getStudent().toString() + "'s order of"
                 , library.schoolName() + "-" + operation.getBookId()};
         System.out.println(String.join(" ",output));
+        output = new String[]{"(Sequence)",operation.squaredTime(),
+                "Ordering sends a message to Library"};
+        System.out.println(String.join(" ",output));
     }
 
     public HashMap<String, Integer> getPurchaseList() {
@@ -148,12 +151,12 @@ public class Ordering { //interBorrow and order
                 Book book = books.get(r.getBookId()).poll();
                 switch (r.getBookId().charAt(0)) {
                     case 'B':
-                        r.getStudent().ownB(book);
                         fetchBook(r.getStudent(),book);
+                        r.getStudent().ownB(book);
                         break;
                     case 'C':
-                        r.getStudent().ownC(book);
                         fetchBook(r.getStudent(),book);
+                        r.getStudent().ownC(book);
                         break;
                     default:
                 }
