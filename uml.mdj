@@ -19881,7 +19881,7 @@
 										"$ref": "AAAAAAGJLkC11ct3p6k="
 									},
 									"edgePosition": 1,
-									"text": "fetchBook() [getCategory() == Category.B]"
+									"text": "fetchBook() [getBookId().charAt(0) == 'B']"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -19976,7 +19976,7 @@
 										"$ref": "AAAAAAGJLkC/PcuIUFo="
 									},
 									"edgePosition": 1,
-									"text": "fetchBook() [getCategory() == Category.C]"
+									"text": "fetchBook() [getBookId().charAt(0) == 'C']"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -21397,7 +21397,7 @@
 										"$ref": "AAAAAAGJLkzIzc4aVaM="
 									},
 									"edgePosition": 1,
-									"text": "returnB() [getCategory() == Category.B]"
+									"text": "returnB() [getBookId().charAt(0) == 'B']"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -21492,7 +21492,7 @@
 										"$ref": "AAAAAAGJLkzT1c4r9is="
 									},
 									"edgePosition": 1,
-									"text": "returnC() [getCategory() == Category.C]"
+									"text": "returnC() [getBookId().charAt(0) == 'C']"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -22701,7 +22701,7 @@
 							"target": {
 								"$ref": "AAAAAAGJLkAho8sBw2c="
 							},
-							"guard": "getCategory() == Category.B",
+							"guard": "getBookId().charAt(0) == 'B'",
 							"triggers": [
 								{
 									"_type": "UMLEvent",
@@ -22725,7 +22725,7 @@
 							"target": {
 								"$ref": "AAAAAAGJLkBhtcsnClk="
 							},
-							"guard": "getCategory() == Category.C",
+							"guard": "getBookId().charAt(0) == 'C'",
 							"triggers": [
 								{
 									"_type": "UMLEvent",
@@ -22964,7 +22964,7 @@
 							"target": {
 								"$ref": "AAAAAAGJLkAho8sBw2c="
 							},
-							"guard": "getCategory() == Category.B",
+							"guard": "getBookId().charAt(0) == 'B'",
 							"triggers": [
 								{
 									"_type": "UMLEvent",
@@ -22988,7 +22988,7 @@
 							"target": {
 								"$ref": "AAAAAAGJLkBhtcsnClk="
 							},
-							"guard": "getCategory() == Category.C",
+							"guard": "getBookId().charAt(0) == 'C'",
 							"triggers": [
 								{
 									"_type": "UMLEvent",

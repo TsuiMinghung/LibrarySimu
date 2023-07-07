@@ -1,6 +1,10 @@
 package department;
 
-import entity.*;
+import entity.Book;
+import entity.BookState;
+import entity.BookTemplate;
+import entity.Student;
+import entity.Transport;
 import global.Library;
 
 import java.util.HashMap;
