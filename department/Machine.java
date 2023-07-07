@@ -120,9 +120,7 @@ public class Machine {
     public Collection<Book> collect() {
         Collection<Book> result = new ArrayList<>(intraList);
         intraList.clear();
-        result.forEach(book -> {
-            book.setState(BookState.arranging);
-        });
+        result.forEach(book -> book.setState(BookState.arranging));
         return result;
     }
 }

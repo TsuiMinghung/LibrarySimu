@@ -1,6 +1,10 @@
 package department;
 
-import entity.*;
+import entity.Book;
+import entity.BookState;
+import entity.Operation;
+import entity.Record;
+import entity.Student;
 import global.Library;
 import global.Error;
 import global.Runner;

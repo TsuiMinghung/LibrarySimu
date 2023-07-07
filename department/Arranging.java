@@ -64,11 +64,7 @@ public class Arranging {
             }
         }
         library.getOrdering().getOrderedBook(books);
-        books.forEach((k,v) -> {
-            v.forEach(book -> {
-                book.setState(BookState.shelf);
-            });
-        });
+        books.forEach((k,v) -> v.forEach(book -> book.setState(BookState.shelf)));
         library.getShelf().stack(books);
     }
 }

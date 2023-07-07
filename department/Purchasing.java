@@ -32,9 +32,7 @@ public class Purchasing {
     public Collection<Book> collect() {
         Collection<Book> result = new ArrayList<>(books);
         books.clear();
-        result.forEach(book -> {
-            book.setState(BookState.arranging);
-        });
+        result.forEach(book -> book.setState(BookState.arranging));
         return result;
     }
 
@@ -96,7 +94,8 @@ public class Purchasing {
                         , "to", transport.getStudent().toString()};
                 System.out.println(String.join(" ", output));
                 System.out.println("(State) [" + Runner.currentTime() + "] " +
-                        transport.getBook().getBookId() + " transfers from purchasing to onStudent");
+                        transport.getBook().getBookId() +
+                        " transfers from purchasing to onStudent");
 
                 transport.getBook().setState(BookState.onStudent);
                 transport.getStudent().own(transport.getBook());
