@@ -1,10 +1,7 @@
 package department;
 
-import entity.Book;
+import entity.*;
 import global.Library;
-import entity.Operation;
-import entity.Record;
-import entity.Student;
 import global.Error;
 import global.Runner;
 
@@ -152,22 +149,29 @@ public class Ordering { //interBorrow and order
         Iterator<Record> iterator = intraRecords.iterator();
         while (iterator.hasNext()) {
             Record r = iterator.next();
-            if (r.getStudent().canHold(r.getBookId()) && books.containsKey(r.getBookId())) {
-                Book book = books.get(r.getBookId()).poll();
-                switch (r.getBookId().charAt(0)) {
-                    case 'B':
-                        fetchBook(r.getStudent(),book);
-                        r.getStudent().ownB(book);
-                        break;
-                    case 'C':
-                        fetchBook(r.getStudent(),book);
-                        r.getStudent().ownC(book);
-                        break;
-                    default:
+            if (r.getStudent().canHold(r.getBookId())) {
+                if (books.containsKey(r.getBookId())) {
+                    Book book = books.get(r.getBookId()).poll();
+                    book.setState(BookState.ordering);
+                    switch (r.getBookId().charAt(0)) {
+                        case 'B':
+                            fetchBook(r.getStudent(),book);
+                            book.setState(BookState.onStudent);
+                            r.getStudent().ownB(book);
+                            break;
+                        case 'C':
+                            fetchBook(r.getStudent(),book);
+                            book.setState(BookState.onStudent);
+                            r.getStudent().ownC(book);
+                            break;
+                        default:
+                    }
+                    if (books.get(r.getBookId()).isEmpty()) {
+                        books.remove(r.getBookId());
+                    }
+                    iterator.remove();
                 }
-                if (books.get(r.getBookId()).isEmpty()) {
-                    books.remove(r.getBookId());
-                }
+            } else {
                 iterator.remove();
             }
         }
@@ -177,6 +181,10 @@ public class Ordering { //interBorrow and order
         String time = "[" + Runner.currentTime() + "]";
         String[] output = new String[]{time,name,"lent",book.toString(),"to",student.toString()};
         System.out.println(String.join(" ",output));
+
+        System.out.println("(State) [" + Runner.currentTime() + "] " +
+                book.getBookId() + " transfers from ordering to onStudent");
+
         output = new String[]{time,student.toString(),"borrowed",book.toString(),"from",name};
         System.out.println(String.join(" ",output));
     }

@@ -1,9 +1,6 @@
 package department;
 
-import entity.Book;
-import entity.BookTemplate;
-import entity.Student;
-import entity.Transport;
+import entity.*;
 import global.Library;
 
 import java.util.HashMap;
@@ -31,8 +28,10 @@ public class Shelf {
     public boolean interAvailable(Student student, String bookId, Library call) {
         if (books.containsKey(bookId) && books.get(bookId).isRentable()) {
             if (books.get(bookId).isAvailable()) {
+                Book book = fetchBook(bookId);
+                book.setState(BookState.purchasing);
                 library.getPurchasing().lendToTransport(
-                        new Transport(library,call,fetchBook(bookId),student));
+                        new Transport(library,call,book,student));
                 return true;
             } else {
                 return false;

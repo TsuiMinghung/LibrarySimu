@@ -32,6 +32,9 @@ public class Purchasing {
     public Collection<Book> collect() {
         Collection<Book> result = new ArrayList<>(books);
         books.clear();
+        result.forEach(book -> {
+            book.setState(BookState.arranging);
+        });
         return result;
     }
 
@@ -49,14 +52,20 @@ public class Purchasing {
             String[] output = new String[]{time,transport.getBook().toString()
                     ,"got transported by",name,"in",library.schoolName()};
             System.out.println(String.join(" ",output));
-            transport.getBook().setState(BookState.transport);
+
+            System.out.println("(State) [" + Runner.currentTime() + "] " +
+                    transport.getBook().getBookId() + " transfers from purchasing to road");
+            transport.getBook().setState(BookState.road);
             transport.getTo().getPurchasing().dealReceive(transport);
         }
         for (Transport transport : returnTo) {
             String[] output = new String[]{time,transport.getBook().toString()
                     ,"got transported by",name,"in",library.schoolName()};
             System.out.println(String.join(" ",output));
-            transport.getBook().setState(BookState.transport);
+
+            System.out.println("(State) [" + Runner.currentTime() + "] " +
+                    transport.getBook().getBookId() + " transfers from purchasing to road");
+            transport.getBook().setState(BookState.road);
             transport.getTo().getPurchasing().dealReceive(transport);
         }
         lendTo.clear();
@@ -73,7 +82,9 @@ public class Purchasing {
             String[] output = new String[]{time,transport.getBook().toString(),"got received by"
                     ,name,"in",library.schoolName()};
             System.out.println(String.join(" ",output));
-            transport.getBook().setState(BookState.receive);
+            System.out.println("(State) [" + Runner.currentTime() + "] " +
+                    transport.getBook().getBookId() + " transfers from road to purchasing");
+            transport.getBook().setState(BookState.purchasing);
         }
     }
 
@@ -84,6 +95,10 @@ public class Purchasing {
                 String[] output = new String[]{time, name, "lent", transport.getBook().toString()
                         , "to", transport.getStudent().toString()};
                 System.out.println(String.join(" ", output));
+                System.out.println("(State) [" + Runner.currentTime() + "] " +
+                        transport.getBook().getBookId() + " transfers from purchasing to onStudent");
+
+                transport.getBook().setState(BookState.onStudent);
                 transport.getStudent().own(transport.getBook());
                 output = new String[]{time, transport.getStudent().toString(), "borrowed"
                         , transport.getBook().toString(), "from", name};

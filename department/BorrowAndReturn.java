@@ -25,12 +25,16 @@ public class BorrowAndReturn {
     //need to check restrict
     public void borrow(Operation operation) {
         Book book = library.getShelf().fetchBook(operation.getBookId());
+        book.setState(BookState.borrowAndReturn);
 
         if (meetLimit(operation)) {
             String[] output = new String[]{operation.squaredTime(),name,"lent"
                     ,book.toString(),"to",operation.getStudent().toString()};
             System.out.println(String.join(" ",output));
+            System.out.println("(State) " + operation.squaredTime() + " " +
+                    book.getBookId() + " transfers from borrowAndReturn to onStudent");
 
+            book.setState(BookState.onStudent);
             operation.getStudent().ownB(book);
             output = new String[]{"(Sequence)",operation.squaredTime()
                     , "BorrowAndReturn sends a message to Library"};
@@ -45,7 +49,8 @@ public class BorrowAndReturn {
             String[] output = new String[]{operation.squaredTime(),name
                     ,"refused lending",book.toString(),"to",operation.getStudent().toString()};
             System.out.println(String.join(" ",output));
-            book.setState(BookState.borrowAndReturn);
+            System.out.println("(State) " + operation.squaredTime() + " " +
+                    book.getBookId() + " transfers from shelf to borrowAndReturn");
             output = new String[]{"(Sequence)",operation.squaredTime()
                     , "BorrowAndReturn sends a message to Library"};
             System.out.println(String.join(" ",output));
@@ -81,15 +86,14 @@ public class BorrowAndReturn {
         if (book.isSmeared()) {
             dealFine(operation);
             finishReturn(operation,book);
-            book.setState(BookState.borrowAndReturn);
             library.getLogistics().dealRepair(book,operation.getTime());
         } else {
             //belong to this school?
             finishReturn(operation,book);
-            book.setState(BookState.borrowAndReturn);
-            if (book.schoolName().equals(student.schoolName())) {
+            if (book.belongTo(student.schoolName())) {
                 intraList.add(book);
             } else {
+                book.setState(BookState.purchasing);
                 library.getPurchasing().returnToTransport(
                         new Transport(library,book.getLibrary(),book));
             }
@@ -104,11 +108,16 @@ public class BorrowAndReturn {
         output = new String[]{operation.squaredTime(),name,"collected",book.toString(),"from"
                 ,operation.getStudent().toString()};
         System.out.println(String.join(" ",output));
+        System.out.println("(State) " + operation.squaredTime() + " " +
+                book.getBookId() + " transfers from onStudent to borrowAndReturn");
     }
 
     public Collection<Book> collect() {
         Collection<Book> result = new ArrayList<>(intraList);
         intraList.clear();
+        result.forEach((book -> {
+            book.setState(BookState.arranging);
+        }));
         return result;
     }
 }

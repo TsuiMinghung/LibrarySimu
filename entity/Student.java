@@ -104,12 +104,10 @@ public class Student {
 
     public void ownB(Book book) {
         bookB = book;
-        book.setState(BookState.onStudent);
         book.setOwnedTime(Runner.currentTime());
     }
 
     public void ownC(Book book) {
-        book.setState(BookState.onStudent);
         bookCs.put(book.getBookId(),book);
         book.setOwnedTime(Runner.currentTime());
     }
@@ -135,12 +133,15 @@ public class Student {
 
     public Book returnB() {
         Book result = bookB;
+        result.setState(BookState.borrowAndReturn);
         bookB = null;
         return result;
     }
 
     public Book returnC(String bookId) {
-        return bookCs.remove(bookId);
+        Book result = bookCs.remove(bookId);
+        result.setState(BookState.machine);
+        return result;
     }
 
     @Override

@@ -24,11 +24,14 @@ public class Logistics {
         String[] output = new String[]{"[" + time + "]",book.toString()
                 , "got repaired by",name,"in", library.schoolName()};
         System.out.println(String.join(" ",output));
+        System.out.println("(State) [" + time + "] " +
+                book.getBookId() + " transfers from " + book.stateString() + " to logistics");
         book.setState(BookState.logistics);
 
-        if (book.schoolName().equals(library.schoolName())) {
+        if (book.belongTo(library.schoolName())) {
             intraList.add(book);
         } else {
+            book.setState(BookState.purchasing);
             library.getPurchasing().returnToTransport(
                     new Transport(library,book.getLibrary(),book)
             );
@@ -38,6 +41,9 @@ public class Logistics {
     public Collection<Book> collect() {
         Collection<Book> result = new ArrayList<>(intraList);
         intraList.clear();
+        result.forEach(book -> {
+            book.setState(BookState.arranging);
+        });
         return result;
     }
 }

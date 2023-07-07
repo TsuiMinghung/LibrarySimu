@@ -38,10 +38,7 @@ public class Book {
     }
 
     public void setState(BookState newState) {
-        String[] output = new String[]{"(State)",Runner.currentTime(),getBookId(),"transfers from"
-                ,this.state.toString(),newState.toString()};
         this.state = newState;
-        System.out.println(String.join(" ",output));
     }
 
     public String getBookId() {
@@ -93,5 +90,13 @@ public class Book {
                     return false;
             }
         }
+    }
+
+    public boolean belongTo(String schoolName) {
+        return schoolName.equals(schoolName());
+    }
+
+    public String stateString() {
+        return state.toString();
     }
 }

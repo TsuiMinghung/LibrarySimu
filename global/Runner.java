@@ -116,12 +116,16 @@ public class Runner {
         Library.dealReceive();
         Library.dealInterBorrow();
 
-        if (current.get(Calendar.DAY_OF_YEAR) - previous.get(Calendar.DAY_OF_YEAR) >= 3) {
+        if (needArrange()) {
             Library.dealPurchase();
             printArrange();
             previous.add(Calendar.DAY_OF_YEAR,3);
             Library.dealAllocate();//collect,satisfy and on shelf
         }
+    }
+
+    private boolean needArrange() {
+        return current.get(Calendar.DAY_OF_YEAR) - previous.get(Calendar.DAY_OF_YEAR) >= 3;
     }
 
     private void printArrange() {

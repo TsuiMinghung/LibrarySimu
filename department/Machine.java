@@ -41,12 +41,17 @@ public class Machine {
     //need to check restrict
     public void borrow(Operation operation) {
         Book book = library.getShelf().fetchBook(operation.getBookId());
+        book.setState(BookState.machine);
 
         if (meetLimit(operation)) {
 
             String[] output = new String[]{operation.squaredTime(),name,"lent"
                     ,book.toString(),"to",operation.getStudent().toString()};
             System.out.println(String.join(" ",output));
+            System.out.println("(State) " + operation.squaredTime() + " " +
+                    book.getBookId() + " transfers from machine to onStudent");
+
+            book.setState(BookState.onStudent);
             operation.getStudent().ownC(book);
             output = new String[]{"(Sequence)",operation.squaredTime()
                     , "Machine sends a message to Library"};
@@ -59,7 +64,8 @@ public class Machine {
             String[] output = new String[]{operation.squaredTime(),name
                     ,"refused lending",book.toString(),"to",operation.getStudent().toString()};
             System.out.println(String.join(" ",output));
-            book.setState(BookState.machine);
+            System.out.println("(State) " + operation.squaredTime() + " " +
+                    book.getBookId() + " transfers from shelf to borrowAndReturn");
 
             output = new String[]{"(Sequence)",operation.squaredTime()
                     , "Machine sends a message to Library"};
@@ -83,15 +89,14 @@ public class Machine {
         if (book.isSmeared()) {
             library.getBorrowAndReturn().dealFine(operation);
             finishReturn(operation,book);
-            book.setState(BookState.machine);
             library.getLogistics().dealRepair(book,operation.getTime());
         } else {
             finishReturn(operation,book);
-            book.setState(BookState.machine);
 
-            if (book.schoolName().equals(student.schoolName())) {
+            if (book.belongTo(student.schoolName())) {
                 intraList.add(book);
             } else {
+                book.setState(BookState.purchasing);
                 library.getPurchasing().returnToTransport(
                         new Transport(library,book.getLibrary(),book)
                 );
@@ -108,11 +113,16 @@ public class Machine {
         output = new String[]{operation.squaredTime(),name,"collected",book.toString(),"from"
                 ,operation.getStudent().toString()};
         System.out.println(String.join(" ",output));
+        System.out.println("(State) " + operation.squaredTime() + " " +
+                book.getBookId() + " transfers from onStudent to machine");
     }
 
     public Collection<Book> collect() {
         Collection<Book> result = new ArrayList<>(intraList);
         intraList.clear();
+        result.forEach(book -> {
+            book.setState(BookState.arranging);
+        });
         return result;
     }
 }
