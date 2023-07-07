@@ -1,6 +1,7 @@
 package entity;
 
 public enum BookState {
+    //the position of a Book,except newBook state.
     newBook,
     onStudent,
     borrowAndReturn,

@@ -33,7 +33,7 @@ public class Library {
         }
     }
 
-    //TODO：此方法存疑，名字应该为query,实际涉及书籍借出改动
+    //TODO：此方法存疑，看名字应该为query,实际涉及书籍借出改动
     public static boolean canInterBorrow(Student student, String bookId, Library call) {
         for (Library library : LIBRARIES.values()) {
             if (!library.schoolName.equals(call.schoolName)) {
