@@ -97,6 +97,9 @@ public class Purchasing {
                         transport.getBook().getBookId() +
                         " transfers from purchasing to onStudent");
 
+                System.out.println("(Sequence) [" + Runner.currentTime() +
+                        "] someone sends a message to someone");
+
                 transport.getBook().setState(BookState.onStudent);
                 transport.getStudent().own(transport.getBook());
                 output = new String[]{time, transport.getStudent().toString(), "borrowed"

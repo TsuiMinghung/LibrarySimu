@@ -190,6 +190,9 @@ public class Ordering { //interBorrow and order
         System.out.println("(State) [" + Runner.currentTime() + "] " +
                 book.getBookId() + " transfers from ordering to onStudent");
 
+        System.out.println("(Sequence) [" + Runner.currentTime() +
+                "] someone sends a message to someone");
+
         output = new String[]{time,student.toString(),"borrowed",book.toString(),"from",name};
         System.out.println(String.join(" ",output));
     }

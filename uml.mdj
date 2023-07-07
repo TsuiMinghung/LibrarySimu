@@ -5134,7 +5134,7 @@
 											"top": 1158,
 											"width": 307.09326171875,
 											"height": 13,
-											"text": "-finishReturn(operation: Operation, book: Book): void",
+											"text": "-printReturn(operation: Operation, book: Book): void",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5730,7 +5730,7 @@
 											"top": 983,
 											"width": 351.55224609375,
 											"height": 13,
-											"text": "-finishReturn(operation: Operation, book: Book): void",
+											"text": "-printReturn(operation: Operation, book: Book): void",
 											"horizontalAlignment": 0
 										},
 										{
@@ -15723,7 +15723,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGJGvmf/YJrCfA="
 							},
-							"name": "finishReturn",
+							"name": "printReturn",
 							"visibility": "private",
 							"parameters": [
 								{
@@ -16056,7 +16056,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGJGwC+w4O79r4="
 							},
-							"name": "finishReturn",
+							"name": "printReturn",
 							"visibility": "private",
 							"parameters": [
 								{
@@ -18235,7 +18235,7 @@
 										"$ref": "AAAAAAGJLkC11ct3p6k="
 									},
 									"edgePosition": 1,
-									"text": "fetchBook() [getBookId().charAt(0) == 'B']"
+									"text": "fetchBook()"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -18330,7 +18330,7 @@
 										"$ref": "AAAAAAGJLkC/PcuIUFo="
 									},
 									"edgePosition": 1,
-									"text": "fetchBook() [getBookId().charAt(0) == 'C']"
+									"text": "fetchBook()"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -19751,7 +19751,7 @@
 										"$ref": "AAAAAAGJLkzIzc4aVaM="
 									},
 									"edgePosition": 1,
-									"text": "returnB() [getBookId().charAt(0) == 'B']"
+									"text": "returnB()"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -19846,7 +19846,7 @@
 										"$ref": "AAAAAAGJLkzT1c4r9is="
 									},
 									"edgePosition": 1,
-									"text": "returnC() [getBookId().charAt(0) == 'C']"
+									"text": "returnC()"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -21055,7 +21055,6 @@
 							"target": {
 								"$ref": "AAAAAAGJLkAho8sBw2c="
 							},
-							"guard": "getBookId().charAt(0) == 'B'",
 							"triggers": [
 								{
 									"_type": "UMLEvent",
@@ -21079,7 +21078,6 @@
 							"target": {
 								"$ref": "AAAAAAGJLkBhtcsnClk="
 							},
-							"guard": "getBookId().charAt(0) == 'C'",
 							"triggers": [
 								{
 									"_type": "UMLEvent",
@@ -21318,7 +21316,6 @@
 							"target": {
 								"$ref": "AAAAAAGJLkAho8sBw2c="
 							},
-							"guard": "getBookId().charAt(0) == 'B'",
 							"triggers": [
 								{
 									"_type": "UMLEvent",
@@ -21342,7 +21339,6 @@
 							"target": {
 								"$ref": "AAAAAAGJLkBhtcsnClk="
 							},
-							"guard": "getBookId().charAt(0) == 'C'",
 							"triggers": [
 								{
 									"_type": "UMLEvent",
