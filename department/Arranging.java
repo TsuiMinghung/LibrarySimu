@@ -17,6 +17,7 @@ public class Arranging {
         this.library = library;
     }
 
+    //TODO：名字存疑？行为是 收集->满足预定->上架
     public void dealAllocate() {
         HashMap<String, LinkedList<Book>> books = new HashMap<>();
         for (Book book : library.getBorrowAndReturn().collect()) {

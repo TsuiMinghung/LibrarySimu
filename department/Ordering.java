@@ -32,6 +32,7 @@ public class Ordering { //interBorrow and order
         purchaseList = new HashMap<>();
     }
 
+    //TODO:此函数存疑，既包括校内预约逻辑也包括校际借阅逻辑、有点耦合？
     public void order(Operation operation) {
         //prerequisite: shelf doesn't have the book
         dailyOperations.offer(operation);

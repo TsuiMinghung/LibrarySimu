@@ -85,11 +85,11 @@ public class BorrowAndReturn {
 
         if (book.isSmeared()) {
             dealFine(operation);
-            finishReturn(operation,book);
+            printReturn(operation,book);
             library.getLogistics().dealRepair(book,operation.getTime());
         } else {
             //belong to this school?
-            finishReturn(operation,book);
+            printReturn(operation,book);
             if (book.belongTo(student.schoolName())) {
                 intraList.add(book);
             } else {
@@ -101,7 +101,7 @@ public class BorrowAndReturn {
         book.resetOwned();
     }
 
-    private void finishReturn(Operation operation,Book book) {
+    private void printReturn(Operation operation, Book book) {
         String[] output = new String[]{operation.squaredTime(),
                 operation.getStudent().toString(),"returned",book.toString(),"to",name};
         System.out.println(String.join(" ",output));

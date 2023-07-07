@@ -21,11 +21,8 @@ public class Logistics {
     }
 
     public void dealRepair(Book book, String time) {
-        String[] output = new String[]{"[" + time + "]",book.toString()
-                , "got repaired by",name,"in", library.schoolName()};
-        System.out.println(String.join(" ",output));
-        System.out.println("(State) [" + time + "] " +
-                book.getBookId() + " transfers from " + book.stateString() + " to logistics");
+        printRepair(book,time);
+
         book.setState(BookState.logistics);
 
         if (book.belongTo(library.schoolName())) {
@@ -36,6 +33,14 @@ public class Logistics {
                     new Transport(library,book.getLibrary(),book)
             );
         }
+    }
+
+    private void printRepair(Book book,String time) {
+        String[] output = new String[]{"[" + time + "]",book.toString()
+                , "got repaired by",name,"in", library.schoolName()};
+        System.out.println(String.join(" ",output));
+        System.out.println("(State) [" + time + "] " +
+                book.getBookId() + " transfers from " + book.stateString() + " to logistics");
     }
 
     public Collection<Book> collect() {

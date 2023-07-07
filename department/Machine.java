@@ -23,6 +23,11 @@ public class Machine {
     }
 
     public boolean queryAvailable(Operation operation) {
+        printQuery(operation);
+        return library.getShelf().isAvailable(operation.getBookId());
+    }
+
+    private void printQuery(Operation operation) {
         String[] output = new String[]{operation.squaredTime(),operation.getStudent().toString()
                 ,"queried",operation.getBookId(),"from",name};
         System.out.println(String.join(" ",output));
@@ -35,7 +40,6 @@ public class Machine {
         output = new String[] {"(Sequence)",operation.squaredTime()
                 ,"Machine sends a message to Library"};
         System.out.println(String.join(" ",output));
-        return library.getShelf().isAvailable(operation.getBookId());
     }
 
     //need to check restrict
@@ -88,10 +92,10 @@ public class Machine {
 
         if (book.isSmeared()) {
             library.getBorrowAndReturn().dealFine(operation);
-            finishReturn(operation,book);
+            printReturn(operation,book);
             library.getLogistics().dealRepair(book,operation.getTime());
         } else {
-            finishReturn(operation,book);
+            printReturn(operation,book);
 
             if (book.belongTo(student.schoolName())) {
                 intraList.add(book);
@@ -106,7 +110,7 @@ public class Machine {
         book.resetOwned();
     }
 
-    private void finishReturn(Operation operation,Book book) {
+    private void printReturn(Operation operation, Book book) {
         String[] output = new String[]{operation.squaredTime(),
                 operation.getStudent().toString(),"returned",book.toString(),"to",name};
         System.out.println(String.join(" ",output));
