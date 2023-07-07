@@ -62,7 +62,7 @@ public class Arranging {
                 });
             }
         }
-        library.getOrdering().satisfy(books);
+        library.getOrdering().getOrderedBook(books);
         library.getShelf().stack(books);
     }
 }

@@ -79,7 +79,7 @@ public class Ordering { //interBorrow and order
                         Record record = new Record(operation);
 
                         if (!library.getShelf().hasBookTemplate(bookId)) {
-                            purchaseList.put(bookId,purchaseList.getOrDefault(bookId,0) + 1);
+                            orderNewBook(operation);
                         }
                         intraRecords.add(record);
                         printOrder(operation);
@@ -112,7 +112,7 @@ public class Ordering { //interBorrow and order
                         student.reserveBook(bookId);
                         Record record = new Record(operation);
                         if (!library.getShelf().hasBookTemplate(bookId)) {
-                            purchaseList.put(bookId,purchaseList.getOrDefault(bookId,0) + 1);
+                            orderNewBook(operation);
                         }
                         intraRecords.add(record);
                         printOrder(operation);
@@ -121,6 +121,11 @@ public class Ordering { //interBorrow and order
                 }
             }
         }
+    }
+
+    private void orderNewBook(Operation operation) {
+        String bookId = operation.getBookId();
+        purchaseList.put(bookId,purchaseList.getOrDefault(bookId,0) + 1);
     }
 
     private void printOrder(Operation operation) {
@@ -143,7 +148,7 @@ public class Ordering { //interBorrow and order
         return result;
     }
 
-    public void satisfy(HashMap<String, LinkedList<Book>> books) {
+    public void getOrderedBook(HashMap<String, LinkedList<Book>> books) {
         Iterator<Record> iterator = intraRecords.iterator();
         while (iterator.hasNext()) {
             Record r = iterator.next();
