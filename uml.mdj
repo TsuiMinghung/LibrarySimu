@@ -18235,7 +18235,7 @@
 										"$ref": "AAAAAAGJLkC11ct3p6k="
 									},
 									"edgePosition": 1,
-									"text": "fetchBook()"
+									"text": "fetchBook() [getCategory() == Category.B]"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -18330,7 +18330,7 @@
 										"$ref": "AAAAAAGJLkC/PcuIUFo="
 									},
 									"edgePosition": 1,
-									"text": "fetchBook()"
+									"text": "fetchBook() [getCategory() == Category.C]"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -21055,6 +21055,7 @@
 							"target": {
 								"$ref": "AAAAAAGJLkAho8sBw2c="
 							},
+							"guard": "getCategory() == Category.B",
 							"triggers": [
 								{
 									"_type": "UMLEvent",
@@ -21078,6 +21079,7 @@
 							"target": {
 								"$ref": "AAAAAAGJLkBhtcsnClk="
 							},
+							"guard": "getCategory() == Category.C",
 							"triggers": [
 								{
 									"_type": "UMLEvent",
